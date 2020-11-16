@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://notthebe.ee/Windows10.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/favicon.png">
+    <link href="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/css2" rel="stylesheet">
+    <title>Windows 10 AME – Make Windows Suck Less! — Wolfgang's Blog</title>
+<script data-dapp-detection="">(function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){return window.__disableDappDetectionInsertion||n(),t}})}})();</script></head>
+
+<body>
+
+<nav class="menu">
+<div class="nav-left">
+ <ul>
+    <li><a href="https://notthebe.ee/index.html"><img class="logo" src="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/favicon.png" alt="">wolfgang's blog</a></li>
+  </ul>
+</div>
+<div class="nav-right">
+ <ul>
+    <li><a href="mailto:wolfgangschannel@mailbox.org">contact</a></li>
+    <li><a href="https://patreon.com/WolfgangsChannel">support</a></li>
+    <li><a href="https://github.com/notthebee">github</a></li>
+    <li><a href="https://twitter.com/notthebeeee">twitter</a></li>
+    <li><a href="https://youtube.com/c/WolfgangsChannel">videos</a></li>
+  </ul>
+</div>
+</nav>
+
+<article>
+<h1 id="Windows%2010%20AME%20%E2%80%93%20Make%20Windows%20Suck%20Less!">Windows 10 AME – Make Windows Suck Less!</h1>
+
+<p class="date">September 7, 2020</p>
+
+<p><img src="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/screenshot.png" alt="Screenshot"></p>
+
+<p><em>Please refer to the official AME documentation for an up-to-date version</em></p>
+
+<p><a href="https://ameliorated.info/documentation.html">https://ameliorated.info/documentation.html</a></p>
+
+<h2 id="Downloading%20and%20verifying%20Windows%2010%20ISO">Downloading and verifying Windows 10 ISO</h2>
+
+<p>Download the Windows 10 ISO using <a href="https://github.com/pbatard/Fido">Fido</a> (Windows-only) or <a href="https://tb.rg-adguard.net/public.php">TechBench</a>. Choose a version that is officially supported by AME Project for the most stable experience, or alternatively, try your luck with the latest version. Make sure to choose the correct UI language, <strong>you can't change it after the installation</strong>.</p>
+
+<p>Calcualte the SHA1 sum of the ISO using <a href="https://www.adaic.org/resources/add_content/standards/articles/SHA-1.html">sha1sum</a>. </p>
+
+<p><strong>Updated 08.09.2020:</strong> You can also use this PowerShell commmand to calculate the SHA1 sum on Windows without any third party tools (Thank you, @GezeikVan)</p>
+
+<pre><code>Get-FileHash -Algorithm SHA1 Windows_2004.iso
+</code></pre>
+
+<p>Use <a href="https://sha1.rg-adguard.net/">AdGuard SHA1 catalog</a> to verify the ISO checksum against the MSDN image database.</p>
+
+<p><img src="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/success.png" alt="ISO Verification"></p>
+
+<h2 id="Downloading%20updates">Downloading updates</h2>
+
+<p>Use <a href="https://support.microsoft.com/en-us/help/4555932/windows-10-update-history">Windows 10 Update History</a> page to determinte the KBs of the newest Cumulative update and the SSU for your Windows version. Look up the KBs in the <a href="https://www.catalog.update.microsoft.com/Home.aspx">Microsoft Update Catalog</a> and download the update packages for your architecture.</p>
+
+<p><img src="./Windows 10 AME – Make Windows Suck Less! — Wolfgang&#39;s Blog_files/updates.png" alt="Windows 10 Update History"></p>
+
+<h2 id="Creating%20a%20bootable%20media">Creating a bootable media</h2>
+
+<p>Use <a href="https://rufus.ie/">Rufus</a> to create a bootable USB drive from the Windows 10 ISO. On Linux you can use <strong>WoeUSB</strong> instead. Copy the update packages and Rufus executable to the flash drive. Download a Debian-based Linux LiveUSB image, for example <a href="https://xubuntu.org/">Xubuntu</a> and copy it to the USB drive as well. You might also want to add drivers for your PC. </p>
+
+<p>You will also need the newest version of the Amelioration script from the <a href="https://ameliorated.info/documentation.html">AME website</a></p>
+
+<h2 id="Installing%20Windows">Installing Windows</h2>
+
+<p><strong>Disconnect from the Ethernet/Wi-Fi</strong> and don't connect back until we run the Linux AME script. </p>
+
+<p>Install Windows as usual and make sure to answer “No” to every question about telemetry/data collection/geolocation/etc.</p>
+
+<p>After the installation/setup process is complete, do the following things:</p>
+
+<ul>
+<li>Unpin all tiles from the Start menu</li>
+<li>Remove the search bar from the taskbar</li>
+<li>Remove task view icon from the taskbar</li>
+</ul>
+
+<p>These settings might not be available after the “amelioration” process is finished.</p>
+
+<h2 id="Installing%20updates">Installing updates</h2>
+
+<p>Open the PowerShell as Administrator and type the following commands:
+<code>
+mkdir C:/SSU
+mkdir C:/Cumulative
+</code>
+Go to the flash drive, open the folder with the update packages, Shift+Right click on the empty space in Explorer and click “Open PowerShell window here”. </p>
+
+<p>Unpack the updates. You can tell the SSU apart from the Cumulative update by comparing the package sizes: the SSU file is much smaller than the one for the Cumulative update.</p>
+
+<pre><code>expand -F:* name_of_the_ssu_package.msu C:\SSU
+expand -F:* name_of_the_cumulative_package.msu C:\Cumulative
+</code></pre>
+
+<p>Install the SSU update first. Copy the filename of the CAB package from Explorer, since you won't be able to utilize auto-completion for the DISM command:</p>
+
+<pre><code>dism /online /add-package /packagepath=C:\SSU\name_of_the_ssu.cab
+</code></pre>
+
+<p>Reboot after applying the SSU and install the Cumulative update:</p>
+
+<pre><code>dism /online /add-package /packagepath=C:\Cumulative\name_of_the_cumulative.cab
+</code></pre>
+
+<p><strong>Reboot twice</strong> after the Cumulative update has been installed.</p>
+
+<p>Finally, launch the cleanup task to get rid of the update cache:</p>
+
+<pre><code>dism /online /Cleanup-Image /StartComponentCleanup
+</code></pre>
+
+<h2 id="Running%20the%20amelioration%20script">Running the amelioration script</h2>
+
+<p>Open the flash drive folder and run the AME script as Administrator. Choose <code>1. Run Pre-Amelioration</code> in the menu and wait for the process to finish</p>
+
+<p>Afterwards, choose <code>3. User Permissions</code>. Reset the Administrator password and change your user privileges from “Administrator” to “Standard User”.</p>
+
+<p>Log out when asked to, use the Ctrl+Alt+Del menu to log out manually if necessary.</p>
+
+<p>After logging back in, run PowerShell as Administrator and reset your password:</p>
+
+<pre><code>net user username *
+</code></pre>
+
+<p>Enter the password twice. The symbols won't appear in the command line as you type.</p>
+
+<h2 id="Creating%20a%20Linux%20bootable%20media">Creating a Linux bootable media</h2>
+
+<p>Copy the flash drive folder to your desktop and use <a href="https://rufus.ie/">Rufus</a> to wipe the Windows bootable flash drive and create a Linux USB drive. Reboot into BIOS, re-enable the Internet connection and then boot into Linux</p>
+
+<h2 id="Running%20the%20Linux%20amelioration%20script">Running the Linux amelioration script</h2>
+
+<p>Mount the Windows drive. Then, navigate to <a href="https://ameliorated.info/documentation.html">ameliorated.info</a> and copy the download link for the Linux AME script. </p>
+
+<p>Go to the Windows drive, open the terminal in the root folder. Type <code>sudo su</code> and then type <code>wget &lt;paste the download link&gt;</code>. This will give you root privileges and download the AME script to the root of the Windows drive.</p>
+
+<p>As of writing this, running the script produces an error due to incompatible newline symbols:</p>
+
+<pre><code>-bash: '\r': command not found
+</code></pre>
+
+<p>You can either use a sed script to convert the newline symbols to UNIX ones: </p>
+
+<pre><code>sed -i 's/\r$//' filename
+</code></pre>
+
+<p>Alternatively, use <code>dos2unix</code>:</p>
+
+<pre><code>apt-get update &amp;&amp; apt-get install dos2unix
+dos2unix filename
+</code></pre>
+
+<p>Now you can run the script by typing <code>bash filename</code>.</p>
+
+<p>After the script is finished with no errors, you can now reboot into Windows with the Internet connection enabled.</p>
+
+<h2 id="Post-Amelioration">Post-Amelioration</h2>
+
+<p>Since most of the default Windows applications, including Internet Explorer, Windows Media Player, Photos, etc. are eliminated, we need to install something to replace them.</p>
+
+<p>Edit the AME script that we ran for pre-amelioration and go to the following line:</p>
+
+<pre><code>choco install -y --force --allow-empty-checksums firefox thunderbird vlc youtube-dl 7zip open-shell jpegview vcredist-all directx onlyoffice
+</code></pre>
+
+<p>Add the <code>-installArgs ADDLOCAL=StartMenu</code> after the <code>open-shell</code> text in order to opt out of “Classic Explorer” part of the OpenShell (doesn't work on the current version of Windows as of writing this).</p>
+
+<p>By default, the following applications are installed:</p>
+
+<ul>
+<li>Firefox</li>
+<li>Thunderbird</li>
+<li>VLC</li>
+<li>JPEGView</li>
+<li>OpenShell (a Windows 7-style Start Menu replacement)</li>
+<li>OnlyOffice</li>
+<li>7Zip</li>
+<li>youtube-dl</li>
+<li>Various Windows runtimes (.NET, C++) and DirectX</li>
+</ul>
+
+<p>Feel free to replace or remove the applications in this list depending on your personal preferences.</p>
+
+<p>After making the adjustments, run the script as Administrator and choose <code>2. Run Post-Amelioration</code></p>
+
+<h2 id="Hardening%20Windows%20settings">Hardening Windows settings</h2>
+
+<p>Download <a href="https://securitywithoutborders.org/tools/hardentools.html">Hardentools</a> by Security Without Borders. Run the script as Administrator, reboot after the process is finished.</p>
+
+<h2 id="Changing%20input%20language">Changing input language</h2>
+
+<p>You can remove/add a new input language using PowerShell.</p>
+
+<pre><code>$List = Get-WinUserLanguageList
+$List.add(&lt;language-code&gt;)
+$List.remove(&lt;language-code&gt;)
+Set-WinUserLanguageList $List
+</code></pre>
+
+<p>Replace <code>&lt;language_code&gt;</code> with your language code (e.g. “ru” for Russian or “de-DE” for German)</p>
+
+<h2 id="Installing%20drivers">Installing drivers</h2>
+
+<p>The drivers can be installed by downloading the driver package (sometimes called “SCCM”) for your machine, unpacking it in a folder and executing this command in an elevated shell:</p>
+
+<pre><code>pnputil.exe /add-driver C:\MyDrivers\*.inf /subdirs /install /reboot
+</code></pre>
+</article>
+
+<footer>
+	<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a><br>
+Created with a <a href="https://notthebe.ee/src/ssg5">slightly modified</a> version of <a href="https://www.romanzolotarev.com/ssg.html">ssg</a> by Roman Zolotarev</p>
+</footer>
+
+
+
+</body></html>
